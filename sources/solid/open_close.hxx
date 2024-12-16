@@ -13,12 +13,11 @@ struct Product {
     Size size;
 };
 
-template<typename T>
-struct And_specification;
+template <typename T> struct And_specification;
 
 template<typename T>
 struct Specification {
-    virtual bool is_satisfied(T *item) = 0;
+    virtual bool is_satisfied(T *item) const = 0;
     virtual ~Specification() = default;
 };
 
@@ -42,7 +41,7 @@ struct Product_filter : public Filter<Product> {
 struct By_color : public Specification<Product> {
     Color m_color;
     By_color(Color color) : m_color(color) {}
-    bool is_satisfied(Product *item) override {
+    bool is_satisfied(Product *item) const override {
         return m_color == item->color;
     }
 };
@@ -50,19 +49,19 @@ struct By_color : public Specification<Product> {
 struct By_size : public Specification<Product> {
     Size m_size;
     By_size(Size size) : m_size(size) {}
-    bool is_satisfied(Product *item) override {
+    bool is_satisfied(Product *item) const override {
         return m_size == item->size;
     }
 };
 
 template<typename T>
 struct And_specification : Specification<T> {
-    Specification<T>& m_first;
-    Specification<T>& m_second;
-    explicit And_specification(Specification<T>& first, Specification<T>& second)
+    const Specification<T>& m_first;
+    const Specification<T>& m_second;
+    explicit And_specification(const Specification<T>& first, const Specification<T>& second)
         : m_first(first), m_second(second) {}
 
-    bool is_satisfied(T *item) override {
+    bool is_satisfied(T *item) const override {
         return m_first.is_satisfied(item) && m_second.is_satisfied(item);
     }
 };
