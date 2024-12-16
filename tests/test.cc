@@ -3,8 +3,9 @@
 #include <stddef.h>
 #include "../sources/solid/single_responsible.hxx"
 #include "../sources/solid/open_close.hxx"
+#include "../sources/solid/liskov.hxx"
 
-TEST(tests1, single_responsible) {
+TEST(tests1, srp) {
     using namespace solid;
     Journal journal("Diary");
     journal.add_new_entry("I ate bug today!");
@@ -25,7 +26,7 @@ TEST(tests1, single_responsible) {
     ASSERT_EQ(3, lines.size());
 }
 
-TEST(tests2, open_close_principle) {
+TEST(tests2, oc_principle) {
     using namespace solid;
     Product apple   {"Apple",   Color::green,   Size::small};
     Product tree    {"Tree",    Color::green,   Size::large};
@@ -41,3 +42,15 @@ TEST(tests2, open_close_principle) {
     ASSERT_EQ("Apple", result.at(0)->name);
 }
 
+TEST(tests3, liskov_substitution_principle) {
+    using namespace solid;
+    Rectangle rect(2,3);
+    ASSERT_EQ(process(rect), 20); //2*10
+    Square sqr(4);
+    ASSERT_EQ(process(sqr), 100); //10*10
+
+    auto rect2 = factory::create_rectangle(2,3);
+    ASSERT_EQ(process(rect2), 20); //2*10
+    auto sqr2 = factory::create_square(4);
+    ASSERT_EQ(process(sqr2), 40); //4*10
+}
