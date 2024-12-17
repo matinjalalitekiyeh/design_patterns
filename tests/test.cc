@@ -4,6 +4,7 @@
 #include "../sources/solid/single_responsible.hxx"
 #include "../sources/solid/open_close.hxx"
 #include "../sources/solid/liskov.hxx"
+#include "../sources/solid/interface.hxx"
 
 TEST(tests1, srp) {
     using namespace solid;
@@ -53,4 +54,11 @@ TEST(tests3, liskov_substitution_principle) {
     ASSERT_EQ(process(rect2), 20); //2*10
     auto sqr2 = factory::create_square(4);
     ASSERT_EQ(process(sqr2), 40); //4*10
+}
+
+TEST(tests4, interface) {
+    using namespace solid;
+    machine m;
+    ASSERT_EQ(m.fax(), "Fax");
+    ASSERT_EQ(m.print(), "Print");
 }
