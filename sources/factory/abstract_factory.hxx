@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <map>
+#include <functional>
 
 namespace factory {
 
@@ -52,17 +53,25 @@ struct Drink_factory {
   }
 };
 
+struct Drink_factory_functional {
+  std::map<std::string, std::function<std::unique_ptr<Hot_drink_factory>()>> m_factory;
+  Drink_factory_functional() {
+    m_factory["Tea"] = [](){
+      auto drink = std::make_unique<Tea_factory>();
+      drink->make()->prepare(200);
+      return drink;
+    };
+    m_factory["Coffee"] = [](){
+      auto drink = std::make_unique<Tea_factory>();
+      drink->make()->prepare(150);
+      return drink;
+    };
+  }
 
-
-
-
-
-
-
-
-
-
-
+  void create(const std::string &&name) {
+    m_factory[name]();
+  }
+};
 
 }
 
