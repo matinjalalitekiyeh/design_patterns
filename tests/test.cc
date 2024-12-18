@@ -81,15 +81,13 @@ TEST(tests5, dependency) {
 }
 
 TEST(tests6, abstract_factory) {
-//    using namespace solid;
-//    Relationship rs;
-//    Person parent{"John"};
-//    Person child1{"Cris"}, child2{"Matt"};
-//    rs.add_new_parent(parent, child1);
-//    rs.add_new_parent(parent, child2);
-//    Research_relations research;
-//    const auto result = research.search(rs, "John");
-//    ASSERT_EQ(result.size(), 2);
-//    ASSERT_EQ(result.at(0), "Cris");
-//    ASSERT_EQ(result.at(1), "Matt");
+    using namespace factory;
+    Drink_factory df;
+    df.create("Tea");
+    df.create("Coffee");
+
+    Drink_factory_functional dff;
+    dff.create("Tea");
+    dff.create("Coffee");
+
 }
