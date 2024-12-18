@@ -7,6 +7,8 @@
 #include "../sources/solid/interface.hxx"
 #include "../sources/solid/dependency.hxx"
 
+#include "../sources/factory/abstract_factory.hxx"
+
 TEST(tests1, srp) {
     using namespace solid;
     Journal journal("Diary");
@@ -62,6 +64,20 @@ TEST(tests4, interface) {
     machine m;
     ASSERT_EQ(m.fax(), "Fax");
     ASSERT_EQ(m.print(), "Print");
+}
+
+TEST(tests5, dependency) {
+    using namespace solid;
+    Relationship rs;
+    Person parent{"John"};
+    Person child1{"Cris"}, child2{"Matt"};
+    rs.add_new_parent(parent, child1);
+    rs.add_new_parent(parent, child2);
+    Research_relations research;
+    const auto result = research.search(rs, "John");
+    ASSERT_EQ(result.size(), 2);
+    ASSERT_EQ(result.at(0), "Cris");
+    ASSERT_EQ(result.at(1), "Matt");
 }
 
 TEST(tests5, dependency) {
