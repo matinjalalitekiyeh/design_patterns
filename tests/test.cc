@@ -53,9 +53,9 @@ TEST(tests3, liskov_substitution_principle) {
     Square sqr(4);
     ASSERT_EQ(process(sqr), 100); //10*10
 
-    auto rect2 = factory::create_rectangle(2,3);
+    auto rect2 = solid::factory::create_rectangle(2,3);
     ASSERT_EQ(process(rect2), 20); //2*10
-    auto sqr2 = factory::create_square(4);
+    auto sqr2 = solid::factory::create_square(4);
     ASSERT_EQ(process(sqr2), 40); //4*10
 }
 
@@ -80,16 +80,16 @@ TEST(tests5, dependency) {
     ASSERT_EQ(result.at(1), "Matt");
 }
 
-TEST(tests5, dependency) {
-    using namespace solid;
-    Relationship rs;
-    Person parent{"John"};
-    Person child1{"Cris"}, child2{"Matt"};
-    rs.add_new_parent(parent, child1);
-    rs.add_new_parent(parent, child2);
-    Research_relations research;
-    const auto result = research.search(rs, "John");
-    ASSERT_EQ(result.size(), 2);
-    ASSERT_EQ(result.at(0), "Cris");
-    ASSERT_EQ(result.at(1), "Matt");
+TEST(tests6, abstract_factory) {
+//    using namespace solid;
+//    Relationship rs;
+//    Person parent{"John"};
+//    Person child1{"Cris"}, child2{"Matt"};
+//    rs.add_new_parent(parent, child1);
+//    rs.add_new_parent(parent, child2);
+//    Research_relations research;
+//    const auto result = research.search(rs, "John");
+//    ASSERT_EQ(result.size(), 2);
+//    ASSERT_EQ(result.at(0), "Cris");
+//    ASSERT_EQ(result.at(1), "Matt");
 }
